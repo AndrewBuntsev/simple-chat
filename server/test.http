@@ -1,0 +1,9 @@
+//http://localhost:51000/api/test
+
+
+POST http://localhost:51000/api/addMessage HTTP/1.1
+content-type: application/json
+
+{
+    "messageText": "my first message"
+}
