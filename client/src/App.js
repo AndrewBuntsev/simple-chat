@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import SendMessageComponent from './components/SendMessageComponent';
+import MessageListComponent from './components/MessageListComponent';
 
 class App extends React.Component {
 
@@ -16,6 +17,7 @@ class App extends React.Component {
   render(){
     return (
       <div className="App">
+        <MessageListComponent></MessageListComponent>
         <SendMessageComponent></SendMessageComponent>
       </div>
     );

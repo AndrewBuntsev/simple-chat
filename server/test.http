@@ -1,9 +1,11 @@
 //http://localhost:51000/api/test
 
 
-POST http://localhost:51000/api/addMessage HTTP/1.1
-content-type: application/json
+//POST http://localhost:51000/api/addMessage HTTP/1.1
+//content-type: application/json
 
-{
-    "messageText": "my first message"
-}
+//{
+  //  "messageText": "my first message"
+//}
+
+http://localhost:51000/countdown
