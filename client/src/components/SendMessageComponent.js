@@ -21,7 +21,8 @@ const buttonStyle = {
 
 class SendMessageComponent extends Component{
     onClick = e => {
-        fetch('http://localhost:51000/api/addMessage', {
+        if (!this.refs.text.value) return;
+        fetch('http://192.168.1.3:51000/api/addMessage', {
             headers: { 'Content-Type': 'application/json' },
             method: 'POST',
             body: JSON.stringify({messageText: this.refs.text.value})

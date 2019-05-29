@@ -36,7 +36,7 @@ class MessageListComponent extends Component{
     eventSource = null;
     
     componentDidMount(){
-        this.eventSource = new EventSource('http://localhost:51000/listenMessages');
+        this.eventSource = new EventSource('http://192.168.1.3:51000/listenMessages');
         this.eventSource.addEventListener('message', e => {
             this.setState((state) => ({messages: state.messages.concat([e.data])}));
             $("#messagesContainer ul li").last().focus();

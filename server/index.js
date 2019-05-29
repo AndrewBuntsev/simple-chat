@@ -1,8 +1,11 @@
+//Server-Sent Events implementation
+
 const express = require('express');
 const app = express();
 
 const cors = require('cors');
-app.use(cors({optionsSuccessStatus: 200}));
+app.use(cors());
+app.options('*', cors());
 
 const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
@@ -20,8 +23,10 @@ app.get('/api/test', function(req, res){
 
 
 app.post('/api/addMessage', function(req, res){
-    console.log('Added message: ' + req.body.messageText);
-    messages.push({id: uuidv4(), text: req.body.messageText});
+    let newMessage = {timestamp: (new Date()).getTime(), text: req.body.messageText};
+    console.log('Added message: %o', newMessage);
+    messages.push(newMessage);
+    res.end();
 });
 
 
@@ -33,10 +38,12 @@ app.get('/listenMessages', function(req, res) {
       'Connection': 'keep-alive'
     });
 
+    let timestamp = (new Date()).getTime();
     const checkInterval = setInterval(() => {
-        while(messages.length > 0){
-            let msg = messages.shift();
-            res.write(`data: ${msg.text}\nid: ${msg.id}\n\n`);
+        let newMessages = messages.filter(m => m.timestamp > timestamp);
+        if (newMessages.length > 0){
+            timestamp = newMessages[newMessages.length - 1].timestamp;
+            newMessages.forEach(msg => res.write(`data: ${msg.text}\n\n`));
         }
     }, 1000);
 
