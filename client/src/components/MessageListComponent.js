@@ -1,8 +1,16 @@
 import React, {Component} from 'react';
+import * as $ from 'jquery';
 
 
 /* #region Styles */
+const containerStyle = {
+    
+};
+
 const listStyle = {
+    width: '60%',
+    height: '600px',
+    overflow: 'auto',
     listStyle: 'none',
     background: '#d4f3e6',
     fontFamily: 'Garamond, serif',
@@ -31,6 +39,7 @@ class MessageListComponent extends Component{
         this.eventSource = new EventSource('http://localhost:51000/listenMessages');
         this.eventSource.addEventListener('message', e => {
             this.setState((state) => ({messages: state.messages.concat([e.data])}));
+            $("#messagesContainer ul li").last().focus();
         }, true);
     }
     
@@ -39,9 +48,9 @@ class MessageListComponent extends Component{
     }
     
     render(){
-        let messages = this.state.messages.map((el, i) => <li key={i} style={listItemStyle}>{el}</li>);
+        let messages = this.state.messages.map((el, i) => <li key={i} tabIndex='1' style={listItemStyle}>{el}</li>);
         return(
-        <div>
+        <div style={containerStyle} id='messagesContainer'>
             <ul style={listStyle}>
                 {messages}
             </ul>

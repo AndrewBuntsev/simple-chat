@@ -35,7 +35,7 @@ app.get('/listenMessages', function(req, res) {
 
     const checkInterval = setInterval(() => {
         while(messages.length > 0){
-            let msg = messages[0].shift();
+            let msg = messages.shift();
             res.write(`data: ${msg.text}\nid: ${msg.id}\n\n`);
         }
     }, 1000);
