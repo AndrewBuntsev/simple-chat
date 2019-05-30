@@ -15,6 +15,7 @@ const uuidv4 = require('uuid/v4');
 
 /* #redion data */
 const messages = [];
+const clients = [];
 /* #endredion data */
 
 app.get('/api/test', function(req, res){
@@ -39,6 +40,7 @@ app.get('/listenMessages', function(req, res) {
     });
 
     let timestamp = (new Date()).getTime();
+    clients.push(req);
     const checkInterval = setInterval(() => {
         let newMessages = messages.filter(m => m.timestamp > timestamp);
         if (newMessages.length > 0){
@@ -49,6 +51,7 @@ app.get('/listenMessages', function(req, res) {
 
     req.on('close', () => {
         clearInterval(checkInterval);
+        clients.splice(clients.indexOf(req), 1);
         res.end();
         console.log('Request closed');
     });
