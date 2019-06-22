@@ -1,0 +1,6 @@
+Make messages copyable
+Make 2 types of authentication:
+    -anonymous
+    -tokenable via
+        -facebook
+        -google
